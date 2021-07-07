@@ -12,10 +12,36 @@ const c = iota
 // in blocks
 const (
 	// iota is scoped to the block
-	_              = iota // underscore: write only, we don't care about the value
-	catSpecialist  = iota
-	dogSpecialist  = iota
+	_             = iota // underscore: write only, we don't care about the value
+	catSpecialist = iota
+	// we can operate
+	dogSpecialist  = iota + 2
 	birdSpecialist // infer the pattern
+)
+
+// use iota for units
+const (
+	_  = iota // ignore the first value by assigning to blank identifier
+	KB = 1 << (10 * iota)
+	MB
+	GB
+	TB
+	PB
+	EB
+	ZB
+	YB
+)
+
+const (
+	isAdmin = 1 << iota
+	isHeadquarters
+	canSeeFinancials
+
+	canSeeAfrica
+	canSeeAsia
+	canSeeEurope
+	canSeeNorthAmerica
+	canSeeSouthAmerica
 )
 
 func main() {
@@ -41,6 +67,19 @@ func main() {
 	fmt.Printf("%v, %T\n", catSpecialist, catSpecialist)
 	fmt.Printf("%v, %T\n", dogSpecialist, dogSpecialist)
 	fmt.Printf("%v, %T\n", birdSpecialist, birdSpecialist)
+
+	fileSize := 4000000000.
+	fmt.Printf("%0.2fGB\n", fileSize/GB)
+
+	// store info efficiently
+	var roles byte = isAdmin | canSeeFinancials | canSeeEurope
+	fmt.Printf("%b\n", roles)
+	fmt.Printf("Is Admin? %v\n", isAdmin&roles == isAdmin)
+	fmt.Printf("Is HQ? %v\n", isHeadquarters&roles == isHeadquarters)
 }
 
 // naming convention: same as variables
+
+// immutable
+
+// values must be calculable at compile time
