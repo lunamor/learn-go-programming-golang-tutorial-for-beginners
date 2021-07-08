@@ -99,7 +99,7 @@ func main() {
 	}
 
 	// type switch
-	var j interface{} := "hello"
+	var j interface{} = "hello"
 	switch j.(type) {
 	case int:
 		fmt.Println("j is an int")
